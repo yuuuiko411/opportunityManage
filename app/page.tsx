@@ -13,30 +13,31 @@ export default async function DashboardPage() {
   const soon = new Date();
   soon.setDate(now.getDate() + 14);
 
-  const [projectCount, activeCount, unbilledCount, invoiceProjects, unpaidProjects, nearDueProjects, projects] = await Promise.all([
-    prisma.project.count(),
-    prisma.project.count({ where: { status: { in: [ProjectStatus.IN_PROGRESS, ProjectStatus.WAITING_REVIEW] } } }),
-    prisma.project.count({ where: { billingStatus: { not: BillingStatus.BILLED } } }),
-    prisma.project.findMany({
-      where: { dueDate: { gte: monthStart, lte: monthEnd } },
-      select: { amount: true },
-    }),
-    prisma.project.findMany({
-      where: { paymentStatus: { not: PaymentStatus.PAID } },
-      select: { amount: true },
-    }),
-    prisma.project.findMany({
-      where: { dueDate: { gte: now, lte: soon }, paymentStatus: { not: PaymentStatus.PAID } },
-      include: { client: true },
-      orderBy: { dueDate: "asc" },
-      take: 6,
-    }),
-    prisma.project.findMany({
-      include: { client: true },
-      orderBy: [{ status: "asc" }, { dueDate: "asc" }],
-      take: 30,
-    }),
-  ]);
+  const [projectCount, activeCount, unbilledCount, invoiceProjects, unpaidProjects, nearDueProjects, projects] =
+    await Promise.all([
+      prisma.project.count(),
+      prisma.project.count({ where: { status: { in: [ProjectStatus.IN_PROGRESS, ProjectStatus.WAITING_REVIEW] } } }),
+      prisma.project.count({ where: { billingStatus: { not: BillingStatus.BILLED } } }),
+      prisma.project.findMany({
+        where: { dueDate: { gte: monthStart, lte: monthEnd } },
+        select: { amount: true },
+      }),
+      prisma.project.findMany({
+        where: { paymentStatus: { not: PaymentStatus.PAID } },
+        select: { amount: true },
+      }),
+      prisma.project.findMany({
+        where: { dueDate: { gte: now, lte: soon }, paymentStatus: { not: PaymentStatus.PAID } },
+        include: { client: true },
+        orderBy: { dueDate: "asc" },
+        take: 6,
+      }),
+      prisma.project.findMany({
+        include: { client: true },
+        orderBy: [{ status: "asc" }, { dueDate: "asc" }],
+        take: 30,
+      }),
+    ]);
 
   const invoiceTotal = invoiceProjects.reduce((sum, project) => sum + project.amount, 0);
   const unpaidTotal = unpaidProjects.reduce((sum, project) => sum + project.amount, 0);
@@ -50,10 +51,30 @@ export default async function DashboardPage() {
       />
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <MetricCard label="進行中案件" value={`${activeCount}件`} detail={`全${projectCount}件`} icon={<ClipboardList className="h-5 w-5" />} />
-        <MetricCard label="未請求" value={`${unbilledCount}件`} detail="請求準備が必要な案件" icon={<AlertCircle className="h-5 w-5" />} />
-        <MetricCard label="今月の売上見込み" value={formatCurrency(invoiceTotal)} detail="納期が今月の案件合計" icon={<CalendarClock className="h-5 w-5" />} />
-        <MetricCard label="未入金額" value={formatCurrency(unpaidTotal)} detail="入金待ち・一部入金を含む" icon={<CircleDollarSign className="h-5 w-5" />} />
+        <MetricCard
+          label="進行中案件"
+          value={`${activeCount}件`}
+          detail={`全${projectCount}件`}
+          icon={<ClipboardList className="h-5 w-5" />}
+        />
+        <MetricCard
+          label="未請求"
+          value={`${unbilledCount}件`}
+          detail="請求準備が必要な案件"
+          icon={<AlertCircle className="h-5 w-5" />}
+        />
+        <MetricCard
+          label="今月の売上見込み"
+          value={formatCurrency(invoiceTotal)}
+          detail="納期が今月の案件合計"
+          icon={<CalendarClock className="h-5 w-5" />}
+        />
+        <MetricCard
+          label="未入金額"
+          value={formatCurrency(unpaidTotal)}
+          detail="入金待ち・一部入金を含む"
+          icon={<CircleDollarSign className="h-5 w-5" />}
+        />
       </div>
 
       <div className="mt-6 grid gap-6 xl:grid-cols-[1fr_1.4fr]">
@@ -67,13 +88,19 @@ export default async function DashboardPage() {
               <p className="text-sm text-gray-500">直近14日以内の納期はありません。</p>
             ) : (
               nearDueProjects.map((project) => (
-                <Link key={project.id} href={`/projects/${project.id}`} className="rounded-md border border-gray-200 bg-gray-50/60 p-4 transition hover:border-gray-300 hover:bg-white">
+                <Link
+                  key={project.id}
+                  href={`/projects/${project.id}`}
+                  className="rounded-md border border-gray-200 bg-gray-50/60 p-4 transition hover:border-gray-300 hover:bg-white"
+                >
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="font-medium text-gray-950">{project.title}</p>
                       <p className="mt-1 text-sm text-gray-600">{project.client.name}</p>
                     </div>
-                    <span className="whitespace-nowrap text-sm font-semibold text-gray-800">{formatDate(project.dueDate)}</span>
+                    <span className="whitespace-nowrap text-sm font-semibold text-gray-800">
+                      {formatDate(project.dueDate)}
+                    </span>
                   </div>
                 </Link>
               ))
@@ -97,8 +124,17 @@ export default async function DashboardPage() {
               <tbody className="divide-y divide-gray-100">
                 {projects.map((project) => (
                   <tr key={project.id} className="hover:bg-gray-50">
-                    <td className="px-2 py-3"><Badge tone={statusTone(project.status)}>{projectStatusLabels[project.status]}</Badge></td>
-                    <td className="px-2 py-3"><Link className="font-medium text-gray-950 hover:text-accent-700" href={`/projects/${project.id}`}>{project.title}</Link></td>
+                    <td className="px-2 py-3">
+                      <Badge tone={statusTone(project.status)}>{projectStatusLabels[project.status]}</Badge>
+                    </td>
+                    <td className="px-2 py-3">
+                      <Link
+                        className="font-medium text-gray-950 hover:text-accent-700"
+                        href={`/projects/${project.id}`}
+                      >
+                        {project.title}
+                      </Link>
+                    </td>
                     <td className="px-2 py-3 text-gray-600">{project.client.name}</td>
                     <td className="px-2 py-3 text-gray-600">{formatDate(project.dueDate)}</td>
                     <td className="px-2 py-3 text-right font-medium">{formatCurrency(project.amount)}</td>
@@ -113,7 +149,17 @@ export default async function DashboardPage() {
   );
 }
 
-function MetricCard({ label, value, detail, icon }: { label: string; value: string; detail: string; icon: React.ReactNode }) {
+function MetricCard({
+  label,
+  value,
+  detail,
+  icon,
+}: {
+  label: string;
+  value: string;
+  detail: string;
+  icon: React.ReactNode;
+}) {
   return (
     <Card className="relative overflow-hidden">
       <div className="flex items-start justify-between gap-4">

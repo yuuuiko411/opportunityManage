@@ -6,7 +6,11 @@ import { prisma } from "@/lib/prisma";
 import { billingStatusLabels, paymentStatusLabels, projectStatusLabels } from "@/lib/labels";
 import { formatCurrency, formatDate } from "@/lib/format";
 
-export default async function ProjectsPage({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
+export default async function ProjectsPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
   const params = await searchParams;
   const q = params.q?.trim();
   const status = params.status as ProjectStatus | undefined;
@@ -20,10 +24,7 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
       AND: [
         q
           ? {
-              OR: [
-                { title: { contains: q } },
-                { client: { name: { contains: q } } },
-              ],
+              OR: [{ title: { contains: q } }, { client: { name: { contains: q } } }],
             }
           : {},
         status ? { status } : {},
@@ -38,7 +39,11 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
 
   return (
     <>
-      <PageHeader title="案件一覧" description="検索と絞り込みで、必要な案件にすぐ移動できます。" action={<ButtonLink href="/projects/new">新規作成</ButtonLink>} />
+      <PageHeader
+        title="案件一覧"
+        description="検索と絞り込みで、必要な案件にすぐ移動できます。"
+        action={<ButtonLink href="/projects/new">新規作成</ButtonLink>}
+      />
       <Card className="mb-5">
         <form className="grid gap-3 lg:grid-cols-6">
           <div className="relative lg:col-span-2">
@@ -47,15 +52,27 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
           </div>
           <SelectInput name="status" defaultValue={status ?? ""}>
             <option value="">ステータスすべて</option>
-            {Object.entries(projectStatusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+            {Object.entries(projectStatusLabels).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
           </SelectInput>
           <SelectInput name="billingStatus" defaultValue={billingStatus ?? ""}>
             <option value="">請求状況すべて</option>
-            {Object.entries(billingStatusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+            {Object.entries(billingStatusLabels).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
           </SelectInput>
           <SelectInput name="paymentStatus" defaultValue={paymentStatus ?? ""}>
             <option value="">入金状況すべて</option>
-            {Object.entries(paymentStatusLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+            {Object.entries(paymentStatusLabels).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
           </SelectInput>
           <div className="grid grid-cols-2 gap-2">
             <TextInput name="dueFrom" type="date" defaultValue={params.dueFrom ?? ""} />
@@ -70,12 +87,18 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
 
       <div className="grid gap-4">
         {projects.length === 0 ? (
-          <Card><p className="text-sm text-gray-500">案件がありません。</p></Card>
+          <Card>
+            <p className="text-sm text-gray-500">案件がありません。</p>
+          </Card>
         ) : (
           projects.map((project) => {
             const incompleteTasks = project.tasks.filter((task) => !task.completed).length;
             return (
-              <Link key={project.id} href={`/projects/${project.id}`} className="block rounded-lg border border-gray-200 bg-white p-4 shadow-soft transition hover:border-gray-300 hover:shadow-md sm:p-5">
+              <Link
+                key={project.id}
+                href={`/projects/${project.id}`}
+                className="block rounded-lg border border-gray-200 bg-white p-4 shadow-soft transition hover:border-gray-300 hover:shadow-md sm:p-5"
+              >
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
@@ -87,8 +110,22 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
                   <div className="grid gap-3 text-sm sm:grid-cols-2 lg:min-w-[680px] lg:grid-cols-5">
                     <ProjectMeta label="金額" value={formatCurrency(project.amount)} strong />
                     <ProjectMeta label="納期" value={formatDate(project.dueDate)} />
-                    <ProjectMeta label="請求状況" value={<Badge tone={billingTone(project.billingStatus)}>{billingStatusLabels[project.billingStatus]}</Badge>} />
-                    <ProjectMeta label="入金状況" value={<Badge tone={paymentTone(project.paymentStatus)}>{paymentStatusLabels[project.paymentStatus]}</Badge>} />
+                    <ProjectMeta
+                      label="請求状況"
+                      value={
+                        <Badge tone={billingTone(project.billingStatus)}>
+                          {billingStatusLabels[project.billingStatus]}
+                        </Badge>
+                      }
+                    />
+                    <ProjectMeta
+                      label="入金状況"
+                      value={
+                        <Badge tone={paymentTone(project.paymentStatus)}>
+                          {paymentStatusLabels[project.paymentStatus]}
+                        </Badge>
+                      }
+                    />
                     <ProjectMeta label="未完了タスク" value={`${incompleteTasks}件`} />
                   </div>
                 </div>

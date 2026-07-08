@@ -24,7 +24,11 @@ export function PageHeader({
 }
 
 export function Card({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <section className={clsx("rounded-lg border border-gray-200 bg-white p-5 shadow-soft sm:p-6", className)}>{children}</section>;
+  return (
+    <section className={clsx("rounded-lg border border-gray-200 bg-white p-5 shadow-soft sm:p-6", className)}>
+      {children}
+    </section>
+  );
 }
 
 export function ButtonLink({
@@ -50,7 +54,13 @@ export function ButtonLink({
   );
 }
 
-export function SubmitButton({ children, variant = "primary" }: { children: React.ReactNode; variant?: "primary" | "danger" }) {
+export function SubmitButton({
+  children,
+  variant = "primary",
+}: {
+  children: React.ReactNode;
+  variant?: "primary" | "danger";
+}) {
   return (
     <button
       type="submit"
@@ -66,18 +76,50 @@ export function SubmitButton({ children, variant = "primary" }: { children: Reac
 }
 
 export function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
-  return <input {...props} className={clsx("min-h-11 w-full rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-accent-600 focus:ring-2 focus:ring-accent-100", props.className)} />;
+  return (
+    <input
+      {...props}
+      className={clsx(
+        "min-h-11 w-full rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-accent-600 focus:ring-2 focus:ring-accent-100",
+        props.className,
+      )}
+    />
+  );
 }
 
 export function SelectInput(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
-  return <select {...props} className={clsx("min-h-11 w-full rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-950 outline-none transition focus:border-accent-600 focus:ring-2 focus:ring-accent-100", props.className)} />;
+  return (
+    <select
+      {...props}
+      className={clsx(
+        "min-h-11 w-full rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-950 outline-none transition focus:border-accent-600 focus:ring-2 focus:ring-accent-100",
+        props.className,
+      )}
+    />
+  );
 }
 
 export function TextArea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  return <textarea {...props} className={clsx("min-h-32 w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-accent-600 focus:ring-2 focus:ring-accent-100", props.className)} />;
+  return (
+    <textarea
+      {...props}
+      className={clsx(
+        "min-h-32 w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-950 outline-none transition placeholder:text-gray-400 focus:border-accent-600 focus:ring-2 focus:ring-accent-100",
+        props.className,
+      )}
+    />
+  );
 }
 
-export function Field({ label, children, className }: { label: string; children: React.ReactNode; className?: string }) {
+export function Field({
+  label,
+  children,
+  className,
+}: {
+  label: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
     <label className={clsx("grid gap-1.5 text-sm font-medium text-gray-700", className)}>
       <span>{label}</span>
