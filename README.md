@@ -49,7 +49,8 @@ npm run db:init
 npm run dev
 ```
 
-開発サーバー起動後、ブラウザで `http://localhost:3000` を開きます。
+開発サーバー起動後、ブラウザで `http://localhost:3100` を開きます。
+ローカル開発時のアプリケーションURLは `.env` に `NEXT_PUBLIC_APP_URL=http://localhost:3100` を設定してください。
 
 ## 主なコマンド
 
