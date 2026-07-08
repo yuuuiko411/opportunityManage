@@ -18,7 +18,7 @@ jobs:
     name: Frontend Quality Checks
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: file:./prisma/ci.db
+      DATABASE_URL: file:./ci.db
 
     steps:
       - name: Checkout repository
@@ -36,6 +36,9 @@ jobs:
 
       - name: Generate Prisma Client
         run: npm run prisma:generate
+
+      - name: Apply Prisma migrations
+        run: npx prisma migrate deploy
 
       - name: TypeScript type check
         run: npm run typecheck
