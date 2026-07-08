@@ -22,7 +22,9 @@ export function DocumentPreview({
   return (
     <div>
       <div className="no-print mb-5 flex justify-between gap-3">
-        <ButtonLink href={`/projects/${project.id}`} variant="secondary">案件へ戻る</ButtonLink>
+        <ButtonLink href={`/projects/${project.id}`} variant="secondary">
+          案件へ戻る
+        </ButtonLink>
         <PrintButton />
       </div>
       <article className="print-page mx-auto min-h-[900px] max-w-[820px] rounded-lg border border-gray-200 bg-white p-8 shadow-soft sm:p-12">
@@ -32,7 +34,9 @@ export function DocumentPreview({
             <p className="mt-4 text-sm text-gray-600">発行日: {formatDate(new Date())}</p>
           </div>
           <div className="text-right text-sm leading-7 text-gray-700">
-            <p className="font-semibold text-gray-950">{setting?.businessName || setting?.ownerName || "自社名未設定"}</p>
+            <p className="font-semibold text-gray-950">
+              {setting?.businessName || setting?.ownerName || "自社名未設定"}
+            </p>
             {setting?.postalCode ? <p>〒{setting.postalCode}</p> : null}
             {setting?.address ? <p>{setting.address}</p> : null}
             {setting?.phone ? <p>TEL: {setting.phone}</p> : null}
@@ -85,7 +89,9 @@ export function DocumentPreview({
             <div>
               <h2 className="font-semibold">振込先</h2>
               <div className="mt-2 text-sm leading-7">
-                <p>{setting?.bankName ?? ""} {setting?.bankBranch ?? ""}</p>
+                <p>
+                  {setting?.bankName ?? ""} {setting?.bankBranch ?? ""}
+                </p>
                 <p>{setting?.bankAccount ?? ""}</p>
                 <p>{setting?.bankHolder ?? ""}</p>
               </div>
@@ -100,7 +106,9 @@ export function DocumentPreview({
 
         <section className="mt-10 border-t border-gray-200 pt-6">
           <h2 className="font-semibold">備考</h2>
-          <p className="mt-2 whitespace-pre-wrap text-sm leading-7 text-gray-700">{setting?.invoiceNote || "ご確認のほどよろしくお願いいたします。"}</p>
+          <p className="mt-2 whitespace-pre-wrap text-sm leading-7 text-gray-700">
+            {setting?.invoiceNote || "ご確認のほどよろしくお願いいたします。"}
+          </p>
         </section>
       </article>
     </div>

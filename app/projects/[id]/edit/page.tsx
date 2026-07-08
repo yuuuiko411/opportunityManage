@@ -11,7 +11,7 @@ export default async function EditProjectPage({ params }: { params: Promise<{ id
   return (
     <>
       <PageHeader title="案件編集" description="案件情報、請求状況、入金状況を更新します。" />
-      <Card>
+      <Card className="max-w-5xl">
         <ProjectForm project={project} />
       </Card>
     </>

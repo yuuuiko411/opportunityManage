@@ -22,17 +22,21 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
         description={`${project.client.name} / ${formatCurrency(project.amount)}`}
         action={
           <div className="flex flex-wrap gap-2">
-            <ButtonLink href={`/projects/${project.id}/invoice`} variant="secondary">請求書</ButtonLink>
-            <ButtonLink href={`/projects/${project.id}/delivery-note`} variant="secondary">納品書</ButtonLink>
+            <ButtonLink href={`/projects/${project.id}/invoice`} variant="secondary">
+              請求書
+            </ButtonLink>
+            <ButtonLink href={`/projects/${project.id}/delivery-note`} variant="secondary">
+              納品書
+            </ButtonLink>
             <ButtonLink href={`/projects/${project.id}/edit`}>編集</ButtonLink>
           </div>
         }
       />
 
-      <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
         <div className="grid gap-6">
           <Card>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <Info label="進捗" value={<Badge>{projectStatusLabels[project.status]}</Badge>} />
               <Info label="請求状況" value={billingStatusLabels[project.billingStatus]} />
               <Info label="入金状況" value={paymentStatusLabels[project.paymentStatus]} />
@@ -40,7 +44,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               <Info label="作成日" value={formatDate(project.createdAt)} />
               <Info label="更新日" value={formatDate(project.updatedAt)} />
             </div>
-            {project.memo ? <div className="mt-5 border-t border-gray-100 pt-5 text-sm leading-7 text-gray-700 whitespace-pre-wrap">{project.memo}</div> : null}
+            {project.memo ? (
+              <div className="mt-6 rounded-md border border-gray-200 bg-gray-50 p-4 text-sm leading-7 text-gray-700 whitespace-pre-wrap">
+                {project.memo}
+              </div>
+            ) : null}
             <div className="mt-5 flex flex-wrap gap-3">
               {project.fileUrl ? <External href={project.fileUrl} label="ファイルURL" /> : null}
               {project.referenceUrl ? <External href={project.referenceUrl} label="参考URL" /> : null}
@@ -52,21 +60,36 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
             <div className="mt-4 grid gap-3">
               {project.tasks.length === 0 ? <p className="text-sm text-gray-500">タスクはまだありません。</p> : null}
               {project.tasks.map((task) => (
-                <div key={task.id} className="flex flex-col gap-3 rounded-md border border-gray-200 p-3 sm:flex-row sm:items-start sm:justify-between">
+                <div
+                  key={task.id}
+                  className="flex flex-col gap-3 rounded-md border border-gray-200 bg-gray-50/70 p-4 sm:flex-row sm:items-start sm:justify-between"
+                >
                   <div className="flex gap-3">
                     <form action={toggleTask.bind(null, task.id, !task.completed, project.id)}>
-                      <button className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100" aria-label="完了状態を切り替え">
+                      <button
+                        className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100"
+                        aria-label="完了状態を切り替え"
+                      >
                         {task.completed ? <Check className="h-4 w-4" /> : null}
                       </button>
                     </form>
                     <div>
-                      <p className={task.completed ? "font-medium text-gray-400 line-through" : "font-medium text-gray-950"}>{task.title}</p>
+                      <p
+                        className={
+                          task.completed ? "font-medium text-gray-400 line-through" : "font-medium text-gray-950"
+                        }
+                      >
+                        {task.title}
+                      </p>
                       <p className="mt-1 text-sm text-gray-500">期限: {formatDate(task.dueDate)}</p>
                       {task.memo ? <p className="mt-2 whitespace-pre-wrap text-sm text-gray-600">{task.memo}</p> : null}
                     </div>
                   </div>
                   <form action={deleteTask.bind(null, task.id, project.id)}>
-                    <button className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50" aria-label="タスク削除">
+                    <button
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50"
+                      aria-label="タスク削除"
+                    >
                       <Trash2 className="h-4 w-4" />
                     </button>
                   </form>
@@ -80,9 +103,15 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
           <Card>
             <h2 className="text-base font-semibold">タスク追加</h2>
             <form action={createTask.bind(null, project.id)} className="mt-4 grid gap-4">
-              <Field label="タスク名"><TextInput name="title" required /></Field>
-              <Field label="期限"><TextInput name="dueDate" type="date" /></Field>
-              <Field label="メモ"><TextArea name="memo" /></Field>
+              <Field label="タスク名">
+                <TextInput name="title" required />
+              </Field>
+              <Field label="期限">
+                <TextInput name="dueDate" type="date" />
+              </Field>
+              <Field label="メモ">
+                <TextArea name="memo" />
+              </Field>
               <SubmitButton>追加する</SubmitButton>
             </form>
           </Card>
@@ -100,13 +129,23 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 }
 
 function Info({ label, value }: { label: string; value: React.ReactNode }) {
-  return <div><p className="text-sm text-gray-500">{label}</p><div className="mt-1 font-medium text-gray-950">{value}</div></div>;
+  return (
+    <div className="rounded-md border border-gray-200 bg-gray-50 px-4 py-3">
+      <p className="text-xs font-medium text-gray-500">{label}</p>
+      <div className="mt-1.5 text-sm font-semibold text-gray-950">{value}</div>
+    </div>
+  );
 }
 
 function External({ href, label }: { href: string; label: string }) {
   return (
-    <Link href={href} target="_blank" className="inline-flex items-center gap-2 rounded-md border border-gray-300 px-3 py-2 text-sm hover:bg-gray-50">
-      {label}<ExternalLink className="h-4 w-4" />
+    <Link
+      href={href}
+      target="_blank"
+      className="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50"
+    >
+      {label}
+      <ExternalLink className="h-4 w-4" />
     </Link>
   );
 }

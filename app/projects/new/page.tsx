@@ -5,7 +5,7 @@ export default function NewProjectPage() {
   return (
     <>
       <PageHeader title="案件新規作成" description="受注後に必要な情報をまとめて登録します。" />
-      <Card>
+      <Card className="max-w-5xl">
         <ProjectForm />
       </Card>
     </>

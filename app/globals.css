@@ -11,6 +11,19 @@ body {
   color: #111827;
 }
 
+::selection {
+  background: #dbeafe;
+  color: #111827;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @media print {
   body {
     background: white;
