@@ -168,7 +168,9 @@ function MetricCard({
           <p className="mt-2 text-2xl font-semibold tracking-normal text-gray-950 sm:text-3xl">{value}</p>
           <p className="mt-2 text-xs leading-5 text-gray-500">{detail}</p>
         </div>
-        <div className="rounded-[4px] border-2 border-gray-950 bg-[#fde047] p-2 text-gray-950 shadow-neo-sm">{icon}</div>
+        <div className="rounded-[4px] border-2 border-gray-950 bg-[#fde047] p-2 text-gray-950 shadow-neo-sm">
+          {icon}
+        </div>
       </div>
     </Card>
   );

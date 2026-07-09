@@ -40,7 +40,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="flex min-h-screen flex-col bg-[#f5f1e8] lg:flex-row">
           <aside className="no-print border-b-2 border-gray-950 bg-[#fde047] lg:sticky lg:top-0 lg:h-screen lg:w-64 lg:border-b-0 lg:border-r-2">
             <div className="flex h-20 items-center border-b-2 border-gray-950 px-5">
-              <Link href="/" className="inline-flex rounded-[4px] border-2 border-gray-950 bg-white px-3 py-1.5 text-lg font-black tracking-tight shadow-neo-sm">
+              <Link
+                href="/"
+                className="inline-flex rounded-[4px] border-2 border-gray-950 bg-white px-3 py-1.5 text-lg font-black tracking-tight shadow-neo-sm"
+              >
                 案件管理。
               </Link>
             </div>
