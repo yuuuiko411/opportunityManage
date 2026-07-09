@@ -27,7 +27,7 @@ export function DocumentPreview({
         </ButtonLink>
         <PrintButton />
       </div>
-      <article className="print-page mx-auto min-h-[900px] max-w-[820px] rounded-lg border border-gray-200 bg-white p-8 shadow-soft sm:p-12">
+      <article className="print-page mx-auto min-h-[900px] max-w-[820px] rounded-[4px] border border-gray-200 bg-white p-8 shadow-soft sm:p-12">
         <div className="flex items-start justify-between gap-8 border-b border-gray-900 pb-8">
           <div>
             <h1 className="text-3xl font-semibold">{type === "invoice" ? "請求書" : "納品書"}</h1>
@@ -49,7 +49,7 @@ export function DocumentPreview({
             <p className="text-sm text-gray-500">{type === "invoice" ? "請求先" : "納品先"}</p>
             <p className="mt-2 border-b border-gray-300 pb-2 text-xl font-semibold">{project.client.name} 御中</p>
           </div>
-          <div className="rounded-md bg-gray-50 p-4">
+          <div className="rounded-[4px] bg-gray-50 p-4">
             <p className="text-sm text-gray-500">{type === "invoice" ? "ご請求金額" : "納品金額"}</p>
             <p className="mt-2 text-3xl font-semibold">{formatCurrency(total)}</p>
           </div>

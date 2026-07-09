@@ -80,7 +80,7 @@ export default async function DashboardPage() {
       <div className="mt-6 grid gap-6 xl:grid-cols-[1fr_1.4fr]">
         <Card>
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-base font-semibold text-gray-950">納期が近い案件</h2>
+            <h2 className="text-lg font-black text-gray-950">納期が近い案件</h2>
             <Badge tone="accent">14日以内</Badge>
           </div>
           <div className="mt-4 grid gap-3">
@@ -91,7 +91,7 @@ export default async function DashboardPage() {
                 <Link
                   key={project.id}
                   href={`/projects/${project.id}`}
-                  className="rounded-md border border-gray-200 bg-gray-50/60 p-4 transition hover:border-gray-300 hover:bg-white"
+                  className="rounded-[4px] border-2 border-gray-950 bg-[#f5f1e8] p-4 transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-[#fde047] hover:shadow-neo-sm"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
@@ -109,10 +109,10 @@ export default async function DashboardPage() {
         </Card>
 
         <Card>
-          <h2 className="text-base font-semibold text-gray-950">ステータス別の案件一覧</h2>
+          <h2 className="text-lg font-black text-gray-950">ステータス別の案件一覧</h2>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full min-w-[720px] text-left text-sm">
-              <thead className="border-b border-gray-200 text-gray-500">
+              <thead className="border-b-2 border-gray-950 bg-[#f5f1e8] text-gray-700">
                 <tr>
                   <th className="px-2 py-2 font-medium">ステータス</th>
                   <th className="px-2 py-2 font-medium">案件名</th>
@@ -123,7 +123,7 @@ export default async function DashboardPage() {
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {projects.map((project) => (
-                  <tr key={project.id} className="hover:bg-gray-50">
+                  <tr key={project.id} className="hover:bg-[#fef9c3]">
                     <td className="px-2 py-3">
                       <Badge tone={statusTone(project.status)}>{projectStatusLabels[project.status]}</Badge>
                     </td>
@@ -168,7 +168,7 @@ function MetricCard({
           <p className="mt-2 text-2xl font-semibold tracking-normal text-gray-950 sm:text-3xl">{value}</p>
           <p className="mt-2 text-xs leading-5 text-gray-500">{detail}</p>
         </div>
-        <div className="rounded-md border border-accent-100 bg-accent-50 p-2 text-accent-700">{icon}</div>
+        <div className="rounded-[4px] border-2 border-gray-950 bg-[#fde047] p-2 text-gray-950 shadow-neo-sm">{icon}</div>
       </div>
     </Card>
   );

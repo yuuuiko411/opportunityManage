@@ -45,7 +45,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               <Info label="更新日" value={formatDate(project.updatedAt)} />
             </div>
             {project.memo ? (
-              <div className="mt-6 rounded-md border border-gray-200 bg-gray-50 p-4 text-sm leading-7 text-gray-700 whitespace-pre-wrap">
+              <div className="mt-6 rounded-[4px] border border-gray-200 bg-gray-50 p-4 text-sm leading-7 text-gray-700 whitespace-pre-wrap">
                 {project.memo}
               </div>
             ) : null}
@@ -62,12 +62,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               {project.tasks.map((task) => (
                 <div
                   key={task.id}
-                  className="flex flex-col gap-3 rounded-md border border-gray-200 bg-gray-50/70 p-4 sm:flex-row sm:items-start sm:justify-between"
+                  className="flex flex-col gap-3 rounded-[4px] border border-gray-200 bg-gray-50/70 p-4 sm:flex-row sm:items-start sm:justify-between"
                 >
                   <div className="flex gap-3">
                     <form action={toggleTask.bind(null, task.id, !task.completed, project.id)}>
                       <button
-                        className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100"
+                        className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-[4px] border border-gray-300 hover:bg-gray-100"
                         aria-label="完了状態を切り替え"
                       >
                         {task.completed ? <Check className="h-4 w-4" /> : null}
@@ -87,7 +87,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
                   </div>
                   <form action={deleteTask.bind(null, task.id, project.id)}>
                     <button
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-50"
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-[4px] border border-gray-300 hover:bg-gray-50"
                       aria-label="タスク削除"
                     >
                       <Trash2 className="h-4 w-4" />
@@ -130,7 +130,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
 function Info({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="rounded-md border border-gray-200 bg-gray-50 px-4 py-3">
+    <div className="rounded-[4px] border border-gray-200 bg-gray-50 px-4 py-3">
       <p className="text-xs font-medium text-gray-500">{label}</p>
       <div className="mt-1.5 text-sm font-semibold text-gray-950">{value}</div>
     </div>
@@ -142,7 +142,7 @@ function External({ href, label }: { href: string; label: string }) {
     <Link
       href={href}
       target="_blank"
-      className="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50"
+      className="inline-flex items-center gap-2 rounded-[4px] border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-50"
     >
       {label}
       <ExternalLink className="h-4 w-4" />
