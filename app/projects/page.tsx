@@ -78,7 +78,7 @@ export default async function ProjectsPage({
             <TextInput name="dueFrom" type="date" defaultValue={params.dueFrom ?? ""} />
             <TextInput name="dueTo" type="date" defaultValue={params.dueTo ?? ""} />
           </div>
-          <button className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-gray-950 px-4 text-sm font-medium text-white transition hover:bg-gray-800 lg:col-start-6">
+          <button className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[4px] border-2 border-gray-950 bg-gray-950 px-4 text-sm font-bold text-white shadow-neo-sm transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-accent-600 hover:shadow-soft lg:col-start-6">
             <Filter className="h-4 w-4" />
             絞り込み
           </button>
@@ -97,7 +97,7 @@ export default async function ProjectsPage({
               <Link
                 key={project.id}
                 href={`/projects/${project.id}`}
-                className="block rounded-lg border border-gray-200 bg-white p-4 shadow-soft transition hover:border-gray-300 hover:shadow-md sm:p-5"
+                className="block rounded-[4px] border-2 border-gray-950 bg-white p-4 shadow-soft transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-[#fefce8] hover:shadow-neo-lg sm:p-5"
               >
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                   <div className="min-w-0">
@@ -140,8 +140,8 @@ export default async function ProjectsPage({
 
 function ProjectMeta({ label, value, strong = false }: { label: string; value: React.ReactNode; strong?: boolean }) {
   return (
-    <div className="rounded-md bg-gray-50 px-3 py-2">
-      <p className="text-xs font-medium text-gray-500">{label}</p>
+    <div className="border-l-2 border-gray-950 bg-[#f5f1e8] px-3 py-2">
+      <p className="ui-label text-xs text-gray-600">{label}</p>
       <div className={strong ? "mt-1 font-semibold text-gray-950" : "mt-1 font-medium text-gray-800"}>{value}</div>
     </div>
   );

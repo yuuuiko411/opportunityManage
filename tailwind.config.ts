@@ -6,14 +6,16 @@ const config: Config = {
     extend: {
       colors: {
         accent: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          600: "#2563eb",
-          700: "#1d4ed8",
+          50: "#eef2ff",
+          100: "#c7d2fe",
+          600: "#4f46e5",
+          700: "#3730a3",
         },
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(15, 23, 42, 0.06), 0 10px 24px rgba(15, 23, 42, 0.04)",
+        soft: "4px 4px 0 #111827",
+        "neo-sm": "2px 2px 0 #111827",
+        "neo-lg": "7px 7px 0 #111827",
       },
     },
   },
